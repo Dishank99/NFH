@@ -1,0 +1,98 @@
+{% extends 'website/main.html' %}
+{% load static %}
+{% block content %}
+<style>
+  #messages {
+    background-color: grey;
+    color: #fff;
+    padding: 10px;
+    margin-top: 10px;
+  }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand"><img src="{% static '/website/img/nfh.png' %}" style="width:100px">Namita's Fitness Hub</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="fa fa-bars"></span> MENU
+    </button>
+    <div class="collapse navbar-collapse " id="ftco-nav">
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">HOME</a></li>
+        <li class="nav-item"><a href="{% url 'highlight-page' %}" class="nav-link">WHYNFH?</a></li>
+        <li class="nav-item"><a href="{% url 'achievements-page' %}" class="nav-link">EXPERT</a></li>
+        <li class="nav-item dropdown ">
+          <a href="{% url 'home-page' %}#programs" class="nav-link">
+            <span>PROGRAMS</span></a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin: -5px;">
+            <a class="dropdown-item" href="{% url 'anniversarys-page' %}">ANNIVERSARIES </a>
+
+            <a class="dropdown-item" href="{% url 'events-page' %}">EVENTS</a>
+
+
+
+            <a class="dropdown-item" href="{% url 'socials-page' %}">SOCIAL CAUSE</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="{% url 'exercises-page' %}" class="nav-link">EXERCISES</a></li>
+        <li class="nav-item"><a href="{% url 'testimonials-page' %}" class="nav-link">TESTIMONIALS</a></li>
+
+        {% if user.is_authenticated%}
+        <li class="nav-item"><a href="{% url 'logout-page' %}" class="nav-link">LOGOUT</a></li>
+        {% else %}
+        <li class="nav-item"><a href="{% url 'login-page' %}" class="nav-link">LOGIN</a></li>
+        {% endif %}
+
+        <li class="nav-item"><a href="{% url 'home-page' %}#contact-section" class="nav-link">CONTACT</a></li>
+        <li class="nav-item"><a href="payment.html" class="nav-link">PAY</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- END nav  -->
+
+<!-- Register Section Begin -->
+<div class="register-login-section spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="login-form">
+          <h2>Login</h2>
+          <form action="" method='POST'>
+            {% csrf_token %}
+            <div class="group-input">
+              <label for="username">Email address *</label>
+              <input type="text" id="email" name="email">
+            </div>
+            <div class="group-input">
+              <label for="pass">Password *</label>
+              <input type="password" id="pass" name="password">
+            </div>
+            <div class="group-input gi-check">
+              <div class="gi-more">
+                <label for="save-pass">
+                  Save Password
+                  <input type="checkbox" id="save-pass">
+                  <span class="checkmark"></span>
+                </label>
+                <a href="{% url 'forgot-password' %}" class="forget-pass">Forget your Password</a>
+              </div>
+            </div>
+            {% for message in messages %}
+            <!-- <p id='messages'>{{ message }}</p> -->
+            <script>alert('{{ message }}')</script>
+            {% endfor %}
+            <input type="submit" class="site-btn login-btn" value='Sign In'>
+          </form>
+          <!-- <div class="switch-login">OR
+                            <a href="{% url 'register-page' %}" class="or-login"> Create An Account</a>
+                        </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Register Form Section End -->
+
+
+{% endblock %}

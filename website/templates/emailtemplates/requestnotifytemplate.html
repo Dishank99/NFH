@@ -1,0 +1,19 @@
+Hello Namita Sharma,
+
+A new User {{ first_name }} {{ last_name }}, has request to join for plan 'Already an NFHite'
+
+Information about {{ first_name }} {{ last_name }}:
+First name: {{ first_name }}
+Last name: {{ last_name }}
+Email: {{ email }}
+Gender: {{ gender }}
+Mobile no.: {{ mobile_no }}
+Class Type: {{ class_type }}
+Batch: {{ batch }}
+
+<html>
+<br>
+<a style='color: white; font-size: 20px; text-decoration: none; padding: 5px 10px; background-color: #dc3545;'
+    href="http://127.0.0.1:8000/approve-request/{{ id }}">Approve {{ first_name }} {{ last_name }}</a>
+
+</html>

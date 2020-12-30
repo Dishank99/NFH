@@ -1,0 +1,688 @@
+{% extends 'website/main.html' %}
+{% load static %}
+{% block content %}
+
+{% for message in messages %}
+  <script>alert('{{ message }}')</script>
+{% endfor %}
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand"><img src="{% static '/website/img/nfh.png' %}" style="width:100px">Namita's Fitness Hub</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="fa fa-bars"></span> MENU
+    </button>
+    <div class="collapse navbar-collapse " id="ftco-nav">
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item active "><a href="{% url 'home-page' %}" class="nav-link">HOME</a></li>
+        <li class="nav-item"><a href="{% url 'highlight-page' %}" class="nav-link">WHYNFH?</a></li>
+        <li class="nav-item"><a href="{% url 'achievements-page' %}" class="nav-link">EXPERT</a></li>
+        <li class="nav-item dropdown ">
+          <a href="{% url 'home-page' %}#programs" class="nav-link">
+            <span>PROGRAMS</span></a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin: -5px;">
+            <a class="dropdown-item" href="{% url 'anniversarys-page' %}">ANNIVERSARIES </a>
+
+            <a class="dropdown-item" href="{% url 'events-page' %}">EVENTS</a>
+
+
+
+            <a class="dropdown-item" href="{% url 'socials-page' %}">SOCIAL CAUSE</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="{% url 'exercises-page' %}" class="nav-link">EXERCISES</a></li>
+        <!-- <li class="nav-item"><a href="{% url 'testimonials-page' %}" class="nav-link">TESTIMONIALS</a></li> -->
+        <li class="nav-item dropdown ">
+          <a href="{% url 'testimonials-page' %}" class="nav-link">
+            <span>TESTIMONIALS</span></a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin: -5px;">
+            <a class="dropdown-item" href="{% url 'testimonials-page' range_start=40 %}">40Kgs & Above </a>
+            <a class="dropdown-item" href="{% url 'testimonials-page' range_start=35 %}">35-40Kgs </a>
+            <a class="dropdown-item" href="{% url 'testimonials-page' range_start=30 %}">30-35Kgs </a>
+            <a class="dropdown-item" href="{% url 'testimonials-page' range_start=25 %}">25-30Kgs </a>
+            <a class="dropdown-item" href="{% url 'testimonials-page' range_start=20 %}">20-25Kgs </a>
+            <a class="dropdown-item" href="{% url 'testimonials-page' range_start=15 %}">15-20Kgs </a>
+            <a class="dropdown-item" href="{% url 'testimonials-page' range_start=10 %}">10-15Kgs </a>
+          </div>
+        </li>
+        {% if user.is_authenticated%}
+        <li class="nav-item"><a href="{% url 'logout-page' %}" class="nav-link">LOGOUT</a></li>
+        {% else %}
+        <li class="nav-item"><a href="{% url 'login-page' %}" class="nav-link">LOGIN</a></li>
+        {% endif %}
+        <li class="nav-item"><a href="{% url 'home-page' %}#contact-section" class="nav-link">CONTACT</a></li>
+        <li class="nav-item"><a href="{% url 'payment-page' %}" class="nav-link">PAY</a></li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- END nav  -->
+
+<div class="hero-wrap js-fullheight">
+  <div class="home-slider owl-carousel js-fullheight">
+
+    <!-- {{ bg1 }} = {% static '/website/img/namita.jpg' %} -->
+    <div class="slider-item js-fullheight" style="background-image:url({% static 'website/img/namita.jpg' %});">
+      <marquee direction="left" scrolldelay="0s" scrollamount="20">
+        {% if Notice %}
+        <h2>{{ Notice.notice }}</h2>
+        {% else %}
+        <h2>Welcome to NFH</h2>
+        {% endif %}
+      </marquee>
+
+
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center ">
+          <div class="col-md-6 ftco-animate">
+            <div class="text-center w-100">
+              <h2 class="mb-4 ">Welcome to Namita's Fitness Hub</h2>
+              <h1 class="mb-4 ">Stay Fit With The Leader</h1>
+              <p><a href="#plans" class="btn btn-primary">Let's Begin</a></p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slider-item js-fullheight" style="background-image:url({% static '/website/img/121.jpg' %});">
+
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-end">
+          <div class="col-md-7 ftco-animate">
+            <div class="text-center w-100">
+
+              <h1>"You make the world, be sure that it's a healthy one.So, Come immerse with us in the journey of health
+                and care."</h1>
+              <h2>- Namita Sharma </h2>
+              <p><a href="https://youtu.be/Y6g-0i3dXII" class="btn btn-primary">Watch Our Journey</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="ftco-section ftco-services">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 d-flex services align-self-stretch px-3 ftco-animate">
+        <div class="d-block services-wrap text-center">
+          <!-- {{ exerciseimg }} = {% static '/website/img/exercises.jpg' %} -->
+          <img class="img" src="{% static 'website/img/exercises1.jpg'%}"></img>
+          <div class="media-body p-2 mt-3">
+            <h3 class="heading">Exercise Programs</h3>
+            <p>Simple and easy excercises for daily routine workout.</p>
+            <p><a href="{% url 'highlight-page' %}#exercise" class="btn btn-primary btn-outline-primary">Read more</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 d-flex services align-self-stretch px-3 ftco-animate">
+        <div class="d-block services-wrap text-center">
+          <div class="img" style="background-image: url({% static 'website/img/ped.jpg' %});"></div>
+          <div class="media-body p-2 mt-3">
+            <h3 class="heading">Personality Development</h3>
+            <p> Enhance your personality to sustain the corporate.</p>
+            <p><a href="{% url 'highlight-page' %}#pd" class="btn btn-primary btn-outline-primary">Read more</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 d-flex services align-self-stretch px-3 ftco-animate">
+        <div class="d-block services-wrap text-center">
+          <div class="img" style="background-image: url({% static 'website/img/funact.jpg' %});"></div>
+          <div class="media-body p-2 mt-3">
+            <h3 class="heading">Fun Activities</h3>
+            <p>Not all workouts require strenuous training. Let's chill for a day.</p>
+            <p><a href="{% url 'highlight-page' %}#fun" class="btn btn-primary btn-outline-primary">Read more</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 d-flex services align-self-stretch px-3 ftco-animate">
+        <div class="d-block services-wrap text-center">
+          <div class="img" style="background-image: url({% static 'website/images/services-3.jpg' %});"></div>
+          <div class="media-body p-2 mt-3">
+            <h3 class="heading">Diet Program</h3>
+            <p>Designing of food charts for a proper calorie/workout ratio.</p>
+            <p><a href="{% url 'highlight-page' %}#diet" class="btn btn-primary btn-outline-primary">Read more</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section ftco-no-pt ftco-no-pb bg-light">
+  <div class="container">
+    <div class="row no-gutters">
+      <div class="col-md-5 p-md-5 img img-2 mt-5 mt-md-0"
+        style="background-image: url({% static '/website/img/profilepic.jpg' %});">
+      </div>
+      <div class="col-md-7 wrap-about py-4 py-md-5 ftco-animate">
+        <div class="heading-section mb-5">
+          <div class="pl-md-5">
+            <span class="subheading mb-2">Welcome to Namita's Fitness Hub</span>
+            <h2 class="mb-2 ">"Always stay fit and healthy, our body is the only place we live"<br>-Namita Sharma</h2>
+          </div>
+        </div>
+        <div class="pl-md-5">
+          <p class="text-justify">
+            Namita Sharma is a Fitness Guru by destiny, a business woman by choice and a Life Coach by conviction. An
+            ocean of enriching experiences, full of wit and wisdom, compassion, integrity and ethics along with heavy
+            streaks of professionalism has made her the Queen Of Fitness. The woman entrepreneur who has a case study to
+            her credit and has been honoured with a standing ovation by a reputed management college in Navi Mumbai. She
+            has revolutionised fitness in her own way with innovative ideas and workout regimes; making every session
+            unique and memorable for her students. Apart from being a Fashionista, Fitness Guru and a Life Coach she is
+            also known for being a philanthropist and believes in helping the society in her own special way. She has
+            totally mastered the art of giving selflessly and does everything with thoughtfulness, true spirit and
+            desire to help the society in all the ways possible to her. Namita Sharma is a self made woman who truly
+            believes and celebrates the spirit of womanhood. Amidst all her greatness this humble soul touches the
+            hearts and reaches out to so many in a million ways.
+
+          </p>
+          <div class="founder d-flex align-items-center mt-5">
+            <div class="img" style="background-image: url({% static '/website/img/11.jpg' %});"></div>
+            <div class="text pl-3">
+              <h3 class="mb-0">Namita Sharma</h3>
+              <span class="position">Fitness Expert & Life Coach</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="ftco-section testimony-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center pb-5 mb-3">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+        <span class="subheading mb-3">Know Our Fitness Expert</span>
+        <h2>Certifications & Achievements</h2>
+      </div>
+    </div>
+    <div class="row ftco-animate">
+      <div class="col-md-12">
+        <div id='achievements-tab' class="carousel-testimony owl-carousel">
+
+          <div class="item">
+            <a href="{% url 'achievements-page' range_start=2006 %}">
+              <div class="testimony-wrap  ">
+                <!-- <div class="  align-items-center" >
+                       <img  src="img/exercise.png">
+                   </div>-->
+                <div class="text-center">
+
+                  2006-2010
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="item">
+            <a href="{% url 'achievements-page' range_start=2011 %}">
+              <div class="testimony-wrap  ">
+                <!-- <div class="  align-items-center" >
+                  <img  src="images/person_1.jpg">
+              </div>-->
+                <div class="text-center">
+
+                  2011-2015
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="{% url 'achievements-page' range_start=2016 %}">
+              <div class="testimony-wrap  ">
+                <!-- <div class="  align-items-center" >
+                  <img  src="img/exercise.png">
+              </div>-->
+                <div class="text-center">
+
+                  2016-2020
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="{% url 'achievements-page' range_start=2021 %}">
+              <div class="testimony-wrap  ">
+                <!-- <div class="  align-items-center" >
+                  <img  src="img/exercise.png">
+              </div>-->
+                <div class="text-center">
+
+                  2021-2025
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="ftco-section ftco-no-pb bg-light">
+  <div class="container">
+    <div class="row justify-content-center pb-5 mb-3">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+        <span class="subheading mb-3">Wall of Fame</span>
+        <h2>2018-2019</h2>
+      </div>
+    </div>
+    <div class="row ftco-animate">
+      <div class="col-md-12">
+        <div class="carousel-stories owl-carousel">
+          <div class="item">
+            <a href="#">
+              <div class="row justify-content-center">
+                <div class="col-md-11">
+                  <div class="stories-wrap d-md-flex">
+
+                    <div class="project img ftco-animate d-flex justify-content-center align-items-center"
+                      style="background-image: url({% static '/website/img/1819_1.jpg' %});">
+                      <div class="overlay text-center">
+
+                        THE STARS
+                        <br>40Kgs And Above Weight Loss
+
+                      </div>
+
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <div class="row justify-content-center">
+                <div class="col-md-11">
+                  <div class="stories-wrap d-md-flex">
+
+                    <div class="project img ftco-animate d-flex justify-content-center align-items-center"
+                      style="background-image: url({% static '/website/img/1819_2.jpg' %});">
+                      <div class="overlay text-center">
+
+                        THE STARS
+                        <br>35-40Kgs Weight Loss
+
+                      </div>
+
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <div class="item">
+            <a href="">
+              <div class="row justify-content-center">
+                <div class="col-md-11">
+                  <div class="stories-wrap d-md-flex">
+
+                    <div class="project img ftco-animate d-flex justify-content-center align-items-center"
+                      style="background-image: url({% static '/website/img/1819_3.jpg' %});">
+                      <div class="overlay text-center">
+
+                        THE STARS
+                        <br>30-35Kgs Weight Loss
+
+                      </div>
+
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <div class="item">
+            <a href="">
+              <div class="row justify-content-center">
+                <div class="col-md-11">
+                  <div class="stories-wrap d-md-flex">
+
+                    <div class="project img ftco-animate d-flex justify-content-center align-items-center"
+                      style="background-image: url({% static '/website/img/1819_4.jpg' %});">
+                      <div class="overlay text-center">
+
+                        THE STARS
+                        <br>25-30Kgs Weight Loss
+
+                      </div>
+
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <div class="item">
+            <a href="">
+              <div class="row justify-content-center">
+                <div class="col-md-11">
+                  <div class="stories-wrap d-md-flex">
+
+                    <div class="project img ftco-animate d-flex justify-content-center align-items-center"
+                      style="background-image: url({% static '/website/img/1819_5.jpg' %});">
+                      <div class="overlay text-center">
+
+                        THE STARS
+                        <br>20-25Kgs Weight Loss
+
+                      </div>
+
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+
+
+          <div class="item">
+            <a href="">
+              <div class="row justify-content-center">
+                <div class="col-md-11">
+                  <div class="stories-wrap d-md-flex">
+
+                    <div class="project img ftco-animate d-flex justify-content-center align-items-center"
+                      style="background-image: url({% static '/website/img/1819_6.jpg' %});">
+                      <div class="overlay text-center">
+
+                        THE STARS
+                        <br>15-20Kgs Weight Loss
+
+                      </div>
+
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+          <div class="item">
+            <a href="">
+              <div class="row justify-content-center">
+                <div class="col-md-11">
+                  <div class="stories-wrap d-md-flex">
+
+                    <div class="project img ftco-animate d-flex justify-content-center align-items-center"
+                      style="background-image: url({% static '/website/img/1819_7.jpg' %});">
+                      <div class="overlay text-center">
+
+                        THE STARS
+                        <br>10-15Kgs Weight Loss
+
+                      </div>
+
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </a>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="ftco-section ftco-no-pb bg-light">
+  <div class="container">
+    <div class="row justify-content-center pb-5 mb-3">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+        <span class="subheading mb-3">Stories</span>
+        <h2>Our Success Stories</h2>
+      </div>
+    </div>
+    <div class="row ftco-animate">
+      <div class="col-md-12">
+        <div class="carousel-stories owl-carousel">
+          {% for ss in success_stories %}
+          <div class="item">
+            <a href="{% url 'testimonials-page' %}">
+              <div class="row justify-content-center">
+                <div class="col-md-11">
+                  <div class="stories-wrap d-md-flex">
+                    <div class="imgg img" style="background-image: url({{ ss.b_img.url }});"></div>
+                    <div class="imgg img" style="background-image: url({{ ss.a_img.url }});"></div>
+                    <div class="text p-4 py-xl-5 px-xl-5 d-flex align-items-center">
+                      <div class=" pt-4 text-justify name mb-0">
+                        <p><i>
+                            "{{ ss.review }}"
+                          </i> </p>
+                        <p>Before Weight - {{ ss.b_weight }} kgs<br>
+                          After Weight - {{ ss.a_weight }} kgs <br>
+                          Weight Loss - {{ ss.total_loss }} kgs<br>
+                          Duration - {{ ss.duration }} months
+
+                        </p>
+
+
+                        <p><i>- {{ ss.client_name }}</i></p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</section>
+<section class="ftco-section bg-light" id="plans">
+  <div class="container">
+    <div class="row justify-content-center pb-5 mb-3">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+        <span class="subheading mb-3">Price &amp; Plans</span>
+        <h2>Choose Your Perfect Plan</h2>
+      </div>
+    </div>
+    <div class="row">
+      {% for plan in plans %}
+      <div class="col-md-6 col-lg-4 ftco-animate">
+        <div class="block-7">
+          <div class="text-center">
+            <h4 class="heading-2">{{ plan.tag_line }}</h4>
+            <span class="excerpt d-block">{{ plan.name }}</span>
+
+            <span class="price"><sup>Rs</sup> <span class="number">{{ plan.price }}</span></span>
+
+            <ul class="pricing-text mb-5">
+              {% for key, value in plan_perks.items %}
+              {% if key == plan.name %}
+              {% for perk in value %}
+              <li><span class="fa fa-check mr-2"></span>{{ perk.text }}</li>
+              {% endfor %}
+              {% endif %}
+              {% endfor %}
+            </ul>
+
+            <a href="{% url 'makepayment-page' slug=plan.slug  %}" class="btn btn-primary px-4 py-3">Get Started</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <div class="col-md-6 col-lg-12 ftco-animate">
+
+        <div class="text-left">
+          <h5> * Online Classes are available for each plan and are open to everyone.<br>
+            * At the hub , 7.30pm-8.30pm(IST) is a UNISEX batch and rest all other batches are open to FEMALES only.
+          </h5>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section" id="programs">
+  <div class="container">
+    <div class="row justify-content-center pb-5 mb-3">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+
+        <span class="subheading">Blogs</span>
+        <h2>Programs at NFH</h2>
+      </div>
+    </div>
+    <div class="row d-flex">
+      <div class="col-md-4">
+        <div class="blog-entry align-self-stretch">
+          <a href="{% url 'anniversarys-page' %}" class="block-20 rounded"
+            style="background-image: url({{ programs_at_nfh.Anniversary.image.image.url }});">
+          </a>
+          <div class="text mt-3">
+            <div class="meta mb-2">
+              <div>{{ programs_at_nfh.Anniversary.details.date }}</div>
+
+            </div>
+            <h3 class="heading"><a
+                href="{% url 'anniversarys-page' %}">{{ programs_at_nfh.Anniversary.details.name }}</a></h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="blog-entry align-self-stretch">
+          <a href="{% url 'events-page' %}" class="block-20 rounded"
+            style="background-image: url({{ programs_at_nfh.Events.image.image.url }});">
+          </a>
+          <div class="text mt-3">
+            <div class="meta mb-2">
+              <div>{{ programs_at_nfh.Events.details.date }}</div>
+
+            </div>
+            <h3 class="heading"><a href="{% url 'events-page' %}">{{ programs_at_nfh.Events.details.name }}</a></h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="blog-entry align-self-stretch">
+          <a href="{% url 'socials-page' %}" class="block-20 rounded"
+            style="background-image: url({{ programs_at_nfh.Socials.image.image.url }});">
+          </a>
+          <div class="text mt-3">
+            <div class="meta mb-2">
+              <div>{{ programs_at_nfh.Socials.details.date }}</div>
+
+            </div>
+            <h3 class="heading"><a href="{% url 'socials-page' %}">{{ programs_at_nfh.Socials.details.name }}</a></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="ftco-section bg-light" id="contact-section">
+  <div class="container">
+    <div class="row justify-content-center pb-5 mb-3">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+
+        <span class="subheading">Locate Us</span>
+        <h2>Contact Us</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="wrapper">
+          <div class="row no-gutters">
+            <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+
+              <iframe align:center width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13201.029201729933!2d73.02125036936376!3d19.015803577474948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3986de3c195%3A0x1a17a5854f112861!2sNamita&#39;s%20Fitness%20Hub!5e0!3m2!1sen!2sin!4v1590658373601!5m2!1sen!2sin"><br />
+              </iframe>
+
+
+
+            </div>
+            <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+              <div class="info-wrap bg-primary w-100 p-md-5 p-4">
+                <h3>Let's get in touch</h3>
+                <p class="mb-4">We're open for any suggestion or just to have a chat</p>
+                <div class="dbox w-100 d-flex align-items-start">
+                  <div class="icon d-flex align-items-center justify-content-center">
+                    <span class="fa fa-map-marker"></span>
+                  </div>
+                  <div class="text pl-3">
+                    <p><span>Address:</span><br>Radha Krishan Tower,<br>Krishna Changa Naik Marg,<br>Seawoods
+                      West,Sector 42A,<br>Navi Mumbai-400706, <br>Maharashtra,India </p>
+                  </div>
+                </div>
+                <div class="dbox w-100 d-flex align-items-center">
+                  <div class="icon d-flex align-items-center justify-content-center">
+                    <span class="fa fa-phone"></span>
+                  </div>
+                  <div class="text pl-3">
+                    <p><span>Phone:</span> <a href="tel:// +91 098202 37547"> +91 098202 37547</a></p>
+                  </div>
+                </div>
+                <div class="dbox w-100 d-flex align-items-center">
+                  <div class="icon d-flex align-items-center justify-content-center">
+                    <span class="fa fa-paper-plane"></span>
+                  </div>
+                  <div class="text pl-3">
+                    <p><span>Email:</span> <a href="mailto:Namitasfitness@gmail.com">Namitasfitness@gmail.com</a></p>
+                  </div>
+                </div>
+                <div class="dbox w-100 d-flex align-items-center">
+                  <div class="icon d-flex align-items-center justify-content-center">
+                    <span class="fa fa-globe"></span>
+                  </div>
+                  <div class="text pl-3">
+                    <p><span>Website</span> <a href="www.Namitasfitnesshub.com">www.namitasfitnesshub.com</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

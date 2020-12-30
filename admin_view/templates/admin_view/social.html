@@ -1,0 +1,37 @@
+{% extends 'admin_view/main.html' %}
+{% block content %}
+    <!--overview start-->
+
+    <div class="row">
+        <div class="col-md-10" style='margin:0 auto '>
+            
+            <div class="card card-body">
+                <h5>Social Causes</h5>
+                <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'add-social-page' %}">Add Social Causes</a>
+                <hr>    
+                <table class="table table-sm">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                    </tr>
+                    {% for s in social %}
+                        <tr>
+                            <td>{{s.name}}</td>
+                            <td style="width:70%">{{s.desc}}</td>
+                            <td>{{s.date}}</td>
+                            <td>
+                                <a class="btn btn-sm btn-info" href="{% url 'update-social-page' pk=s.id %}">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="{% url 'delete-social-page' pk=s.id %}">
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

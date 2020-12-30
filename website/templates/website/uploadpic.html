@@ -1,0 +1,80 @@
+{% extends 'website/main.html' %}
+{% load static %}
+{% block content %}
+	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	  <div class="container">
+		  <a class="navbar-brand"><img src="{% static '/website/img/nfh.png' %}" style="width:100px">Namita's Fitness Hub</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="fa fa-bars"></span> MENU
+		  </button>
+		<div class="collapse navbar-collapse " id="ftco-nav">
+		  <ul class="navbar-nav ml-auto ">
+			  <li class="nav-item  "><a href="{% url 'home-page' %}"  target="_blank" class="nav-link">HOME</a></li>
+              <li class="nav-item"><a href="{% url 'attend-page' %}" class="nav-link">ATTEND CLASS</a></li>
+              <li class="nav-item active"><a href="{% url 'upload-pic-page' %}" class="nav-link">UPLOAD PICTURE</a></li>
+              <li class="nav-item "><a href="{% url 'plan-details-page' %}" class="nav-link">PLAN DETAILS</a></li>
+			
+				<li class="nav-item"><a href="{% url 'logout-page' %}" class="nav-link">LOGOUT</a></li>
+			 
+		  </ul>
+		</div>
+	  </div>
+	</nav>
+  <!-- END nav  -->
+  <section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row" >
+          
+
+            <div class="col-md-3">
+                <h6 style="text-align:center;"><b>*Please upload your body profile picture in similar manner.</b></h6>
+                <div class="stories-wrap d-md-flex">
+                    <div class="imgg img" style="background-image: url({% static 'website/img/a1.jpg' %});"></div>
+                
+                    </div>
+                </div>
+                <div class="col-md-6 offset-md-2 ">
+                    <h3 style="text-align:center;">Upload your body profile picture {{ request.user.first_name }}</h3>
+                    <center>
+                    <form action="" method='POST' enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class='row'>
+
+                      
+                      <div class='col-md-6'>
+                        <input type="file" value='Upload' id='image-input' name='image' onchange="img_pathUrl(this)">
+                        {% for message in messages %}
+                          <script>alert('{{ message }}')</script>
+                        {% endfor %}
+                        <input type="submit" class="site-btn register-btn" value='Upload' style='margin-top:20%'>
+                        <br>
+                      </div>
+                      <div class='col-md-6'>
+                        <div class="stories-wrap d-md-flex">
+                          <!-- <img class="imgg img" style="background-image: url({% static 'website/img/a1.jpg' %});"></div> -->
+                          {% if image %}
+                            <img class="imgg img" src='{{ image.url }}' id='img' alt="">
+                          {% else %}
+                            <img class="imgg img" src='' id='img' alt="">
+                          {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    
+                    </form>
+                  </center>
+                </div>
+            </div>
+          
+        </div>
+    </div>	
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  function img_pathUrl(input){
+        $('#img')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+    }
+</script>
+{% endblock %}

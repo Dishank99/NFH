@@ -1,0 +1,128 @@
+{% extends 'website/main.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand"><img src="{% static '/website/img/nfh.png' %}" style="width:100px">Namita's Fitness
+            Hub</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span> MENU
+        </button>
+        <div class="collapse navbar-collapse " id="ftco-nav">
+            <ul class="navbar-nav ml-auto ">
+                <li class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">HOME</a></li>
+                <li class="nav-item"><a href="{% url 'highlight-page' %}" class="nav-link">WHYNFH?</a></li>
+                <li class="nav-item active"><a href="{% url 'achievements-page' %}" class="nav-link">EXPERT</a></li>
+                <li class="nav-item dropdown ">
+                    <a href="{% url 'home-page' %}#programs" class="nav-link">
+                        <span>PROGRAMS</span></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin: -5px;">
+                        <a class="dropdown-item" href="{% url 'anniversarys-page' %}">ANNIVERSARIES </a>
+
+                        <a class="dropdown-item" href="{% url 'events-page' %}">EVENTS</a>
+
+
+
+                        <a class="dropdown-item" href="{% url 'socials-page' %}">SOCIAL CAUSE</a>
+                    </div>
+                </li>
+                <li class="nav-item"><a href="{% url 'exercises-page' %}" class="nav-link">EXERCISES</a></li>
+                <li class="nav-item"><a href="{% url 'testimonials-page' %}" class="nav-link">TESTIMONIALS</a></li>
+
+                {% if user.is_authenticated%}
+                <li class="nav-item"><a href="{% url 'logout-page' %}" class="nav-link">LOGOUT</a></li>
+                {% else %}
+                <li class="nav-item"><a href="{% url 'login-page' %}" class="nav-link">LOGIN</a></li>
+                {% endif %}
+
+                <li class="nav-item"><a href="{% url 'home-page' %}#contact-section" class="nav-link">CONTACT</a></li>
+                <li class="nav-item"><a href="{% url 'payment-page' %}" class="nav-link">PAY</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END nav  -->
+
+<section class="hero-wrap hero-wrap-2" style="background-color: #dc3545">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2"><span>KNOW OUR EXPERT </span></p>
+                <h1 class="mb-0 bread">Certifications & Achievements</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section ftco-no-pt ftco-no-pb bg-light">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-md-5 p-md-5 img img-2 mt-5 mt-md-0"
+                style="background-image: url({% static 'website/img/profilepic.jpg' %});">
+            </div>
+            <div class="col-md-7 wrap-about py-4 py-md-5 ftco-animate">
+                <div class="heading-section mb-5">
+                    <div class="pl-md-5">
+                        <span class="subheading mb-2">Welcome to Namita's Fitness Hub</span>
+                        <h2 class="mb-2 ">"Always stay fit and healthy, our body is the only place we live"<br>-Namita
+                            Sharma</h2>
+                    </div>
+                </div>
+                <div class="pl-md-5">
+                    <p class="text-justify">
+                        Namita Sharma is a Fitness Guru by destiny, a business woman by choice and a Life Coach by
+                        conviction. An ocean of enriching experiences, full of wit and wisdom, compassion, integrity and
+                        ethics along with heavy streaks of professionalism has made her the Queen Of Fitness. The woman
+                        entrepreneur who has a case study to her credit and has been honoured with a standing ovation by
+                        a reputed management college in Navi Mumbai. She has revolutionised fitness in her own way with
+                        innovative ideas and workout regimes; making every session unique and memorable for her
+                        students. Apart from being a Fashionista, Fitness Guru and a Life Coach she is also known for
+                        being a philanthropist and believes in helping the society in her own special way. She has
+                        totally mastered the art of giving selflessly and does everything with thoughtfulness, true
+                        spirit and desire to help the society in all the ways possible to her. Namita Sharma is a self
+                        made woman who truly believes and celebrates the spirit of womanhood. Amidst all her greatness
+                        this humble soul touches the hearts and reaches out to so many in a million ways.
+
+                    </p>
+                    <div class="founder d-flex align-items-center mt-5">
+                        <div class="img" style="background-image: url({% static 'website/img/11.jpg' %});"></div>
+                        <div class="text pl-3">
+                            <h3 class="mb-0">Namita Sharma</h3>
+                            <span class="position">Fitness Expert & Life Coach</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            {% for achievement in achievements %}
+            <div class="col-md-6 col-lg-6 ftco-animate">
+                <div class="staff">
+                    <div class="img-wrap d-flex align-items-stretch">
+                        <div class="img align-self-stretch" style="background-image: url({{ achievement.image.url }});">
+                        </div>
+                    </div>
+                    <div class="text pt-3 px-3 pb-4 text-center">
+                        <h3>{{ achievement.title }}</h3>
+                        <span class="position mb-2">{{ achievement.year }}</span>
+                        <div class="faded">
+                            <p>{{ achievement.institution }}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

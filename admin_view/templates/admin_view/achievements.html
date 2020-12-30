@@ -1,0 +1,38 @@
+{% extends 'admin_view/main.html' %}
+{% block content %}
+    <!--overview start-->
+    <div class="row">
+        <div class="col-md-10" style='margin:0 auto '>
+            
+            <div class="card card-body">
+                <h5>Achievements</h5>
+                <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'add-achievements-page' %}">Add Achievement</a>
+                <hr>    
+                <table class="table table-sm">
+                    <tr>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Type</th>
+                        <th>Institution</th>
+                    </tr>
+                    {% for achievement in achievements %}
+                        <tr>
+                            <td>{{achievement.title}}</td>
+                            <td>{{achievement.year}}</td>
+                            <td>{{achievement.type}}</td>
+                            <td>{{achievement.institution}}</td>
+                            <td>
+                                <a class="btn btn-sm btn-info" href="{% url 'update-achievements-page' pk=achievement.id %}">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="{% url 'delete-achievements-page' pk=achievement.id %}">
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

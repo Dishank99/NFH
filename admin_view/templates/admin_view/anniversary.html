@@ -1,0 +1,36 @@
+{% extends 'admin_view/main.html' %}
+{% block content %}
+    <!--overview start-->
+    <div class="row">
+        <div class="col-md-10" style='margin:0 auto '>
+            
+            <div class="card card-body">
+                <h5>Anniversary</h5>
+                <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'add-anniversary-page' %}">Add Anniversary</a>
+                <hr>    
+                <table class="table table-lg">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                    </tr>
+                    {% for ann in anniversary %}
+                        <tr>
+                            <td>{{ann.name}}</td>
+                            <td style="width:70%">{{ann.desc}}</td>
+                            <td>{{ann.date}}</td>
+                            <td>
+                                <a class="btn btn-sm btn-info" href="{% url 'update-anniversary-page' pk=ann.id %}">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="{% url 'delete-anniversary-page' pk=ann.id %}">
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

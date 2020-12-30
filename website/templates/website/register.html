@@ -1,0 +1,251 @@
+{% extends 'website/main.html' %}
+{% load static %}
+{% block content %}
+<style>
+  #messages{
+			background-color: grey;
+			color: #fff;
+			padding: 10px;
+			margin-top: 10px;
+		}
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand"><img src="{% static '/website/img/nfh.png' %}" style="width:100px">Namita's Fitness Hub</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="fa fa-bars"></span> MENU
+      </button>
+      <div class="collapse navbar-collapse " id="ftco-nav">
+        <ul class="navbar-nav ml-auto ">
+          <li class="nav-item"><a href="{% url 'home-page' %}" class="nav-link">HOME</a></li>
+          <li class="nav-item"><a href="{% url 'highlight-page' %}" class="nav-link">WHYNFH?</a></li>
+          <li class="nav-item"><a href="{% url 'achievements-page' %}" class="nav-link">EXPERT</a></li>
+          <li class="nav-item dropdown ">
+            <a href="{% url 'home-page' %}#programs" class="nav-link">
+              <span>PROGRAMS</span></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin: -5px;">
+              <a class="dropdown-item" href="{% url 'anniversarys-page' %}">ANNIVERSARIES </a>
+  
+              <a class="dropdown-item" href="{% url 'events-page' %}">EVENTS</a>
+  
+  
+  
+              <a class="dropdown-item" href="{% url 'socials-page' %}">SOCIAL CAUSE</a>
+            </div>
+          </li>
+          <li class="nav-item"><a href="{% url 'exercises-page' %}" class="nav-link">EXERCISES</a></li>
+          <li class="nav-item"><a href="{% url 'testimonials-page' %}" class="nav-link">TESTIMONIALS</a></li>
+  
+          {% if user.is_authenticated%}
+        <li class="nav-item"><a href="{% url 'logout-page' %}" class="nav-link">LOGOUT</a></li>
+        {% else %}
+        <li class="nav-item"><a href="{% url 'login-page' %}" class="nav-link">LOGIN</a></li>
+        {% endif %}
+  
+          <li class="nav-item"><a href="{% url 'home-page' %}#contact-section" class="nav-link">CONTACT</a></li>
+          <li class="nav-item"><a href="payment.html" class="nav-link">PAY</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- END nav  -->
+ <!-- Register Section Begin -->
+ <div class="register-login-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="register-form">
+                    <h2>Register With Us</h2>
+                    <form action="" method="POST">
+                      {% csrf_token %}
+                        <div class="group-input">
+                            <label for="fname">First Name*</label>
+                            <!-- <input type="text" id="fname" name="first_name"> -->
+                            {{ form.first_name }}
+                        </div> 
+                        <div class="group-input">
+                            <label for="lname">Last Name *</label>
+                            <!-- <input type="text" id="lname" name="last_name"> -->
+                            {{ form.last_name }}
+                        </div>
+                        <div class="group-input">
+                          <label for="gender">Gender *</label>
+                          <div class="custom-select" >
+                            <select id='gender' onchange="getGender()"  name="gender" required>
+                             
+                              <option value=''>Select gender</option>
+                              <option value="M">Male</option>
+                              <option value="F">Female</option>
+                            
+                            </select>
+                          </div>  
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Email address *</label>
+                            <!-- <input type="text" id="username"  name="username"> -->
+                            {{ form.username }}
+                        </div>
+                        <div class="group-input">
+                            <label for="mobno">Mobile No *</label>
+                            <input type="text" id="mobno"  name="mobile_no" required>
+                        </div>
+                        <div class="group-input">
+                          <label for="classtype">Class type*</label>
+                         <div class="custom-select" >
+                         
+                           <select id='class-type' onchange="getClassType()" name="class-type" required>
+                            <option value="">Select class type</option>
+                              <option value="O">Online</option>
+                              <option value="A">At hub</option>
+                           </select>
+                         </div>
+                        </div>
+                           <div class="group-input">
+                            <label for="gender">Batch*</label>
+                            <div class="custom-select" >
+                              <select id='batch-time' name="batch_time" required>
+                               
+                                <option value="">Select batch timings</option>
+                                <!-- <option value="1">10.00 am-11.00 am</option>
+                                <option value="2">11.15 am-12.15 pm</option>
+                                <option value="3">06.00 pm-07.00 pm</option>
+                                <option value="4">11.15 am-12.15 am</option> -->
+                              
+                              </select>
+                           </div>
+                        </div>
+                        <div class="group-input">
+                            <label for="pass">Password *</label>
+                            <!-- <input type="text" id="pass" name="password"> -->
+                            {{ form.password1 }}
+                        </div>
+                        <div class="group-input">
+                            <label for="con-pass">Confirm Password *</label>
+                            <!-- <input type="text" id="con-pass" name="c_password"> -->
+                            {{ form.password2 }}
+                        </div>
+                        {% if messages %}
+                          {% for message in messages %}
+                          <div class="alert alert-danger">
+                            <strong>{{ message|escape }}</strong>
+                          </div>
+                            <!-- {{ message }} -->
+                          {% endfor %}
+                      {% endif %}
+                      {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                        <input type="submit" class="site-btn register-btn" value='REGISTER' >
+                    </form>
+                    <div class="switch-login">
+                      OR
+                        <a href="{% url 'login-page' %}" class="or-login">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Register Form Section End -->
+<script>
+  console.log(document.getElementsByName('last_name'))
+  var gender, classType
+  function getGender(){
+    gender = document.getElementById('gender').value;
+    // alert(`gender = ${gender}`)
+    $.ajax({url: "{% url 'get-batches' %}", success: function(result){
+      // console.log(result)
+      setBatchTimings(result)
+    }});
+  }
+
+  function getClassType(){
+    classType = document.getElementById('class-type').value;
+    // alert(`class type = ${classType}`)
+    $.ajax({url: "{% url 'get-batches' %}", success: function(result){
+      // console.log(result)
+      setBatchTimings(result)
+    }});
+  }
+
+  function createOption(value, text){
+    var option = document.createElement("option");
+    option.text = text;
+    option.value = value;
+    return option
+  }
+
+  function dynamicBatches(batches){
+    var select = document.getElementById('batch-time')
+    var i, L = select.options.length - 1;
+    for(i = L; i > 0; i--) {
+        select.remove(i);
+    }
+    batches.forEach(batch => {
+      // console.log('this one ',batch)
+      select.appendChild(createOption(batch.Id, batch.timings))
+    });
+  }
+
+  function setBatchTimings(batches){
+    // console.log(gender)
+    // console.log(classType)
+    /*
+    if classtype is online then, all batches will be displayed regardless of gender
+    if gender is female and classtype is hub then all batches will be selected
+    if gender is male and classtype is hub then 7:30-8:30 slot batches will be displayed
+    */
+    if(gender === 'M' & classType === 'A'){
+      batches = batches.filter(batch => batch.category.toString() === 'U')
+      // console.log(batches)
+    }
+    dynamicBatches(batches)
+  }
+
+  // function IsPresent(){
+  //   console.log('reached here')
+  //   mobile_no = document.getElementById('mobno')
+  //   $.ajax({url: "{% url 'get-mobile-nos' %}", type:'POST', data: {prefix:mobile_no}})
+  //   .done(function(result){
+  //     console.log(result)
+  //     if(result.Present){
+  //       errorDiv = document.getElementsById('mobile-no-error-box')
+  //       errorInStrong = document.createElement('strong')
+  //       errorInStrong.text = 'Mobile number is already present'
+  //       errorDiv.appendChild(errorInStrong)
+  //     }
+  //     console.log(errorDiv)
+  //   })
+  // }
+
+//   $(document).ready(function(){
+//     console.log('reched');
+//     $("#mobno").on('change', function postinput(){
+//         console.log('reached');
+//         var prefix = $(this).val(); // this.value
+//         $.ajax({ 
+//             url: "{% url 'get-mobile-nos' %}",
+//             data: { prefix: prefix },
+//             type: 'post'
+//         }).done(function(responseData) {
+//             console.log('Done: ', responseData);
+//         }).fail(function() {
+//             console.log('Failed');
+//         });
+//     });
+// });
+
+</script>
+{% endblock %}

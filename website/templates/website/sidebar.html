@@ -1,0 +1,57 @@
+{% load static %}
+<div class="col-lg-4 sidebar pl-lg-5 ftco-animate">
+
+    <div class="sidebar-box ftco-animate">
+        <div class="categories">
+            <h3>Highlights</h3>
+            <li><a href="{% url 'highlight-page' %}#exercise">Exercise Programs <span class="ion-ios-arrow-forward"></span></a>
+            </li>
+            <li><a href="{% url 'highlight-page' %}#pd">Personality Development <span class="ion-ios-arrow-forward"></span></a>
+            </li>
+            <li><a href="{% url 'highlight-page' %}#fun">Fun Activities <span class="ion-ios-arrow-forward"></span></a></li>
+            <li><a href="{% url 'highlight-page' %}#diet">Diet Programs <span class="ion-ios-arrow-forward"></span></a></li>
+        </div>
+    </div>
+
+    <div class="sidebar-box ftco-animate">
+        <h3>Recent Blog</h3>
+        <div class="block-21 mb-4 d-flex">
+            <a href="{% url 'anniversarys-page' %}" class="blog-img mr-4"
+                style="background-image: url({{ programs_at_nfh.Anniversary.image.image.url }}); background-repeat:no-repeat;"></a>
+                <div class="text">
+                    <h3 class="heading"><a href="{% url 'anniversarys-page' %}">{{ programs_at_nfh.Anniversary.details.name }}</a></h3>
+                    <div class="meta">
+                        <div><span class="icon-calendar"></span> {{ programs_at_nfh.Anniversary.details.date }}</div>
+
+                    </div>
+                </div>
+        </div>
+        <div class="block-21 mb-4 d-flex">
+            <a href="{% url 'events-page' %}" class="blog-img mr-4"
+                style="background-image: url({{ programs_at_nfh.Events.image.image.url }});"></a>
+                <div class="text">
+                    <h3 class="heading"><a href="{% url 'events-page' %}">{{ programs_at_nfh.Events.details.name }}</a>
+                    </h3>
+                    <div class="meta">
+                        <div><span class="icon-calendar"></span> {{ programs_at_nfh.Events.details.date }}</div>
+
+                    </div>
+                </div>
+        </div>
+        <div class="block-21 mb-4 d-flex">
+            <a href="{% url 'socials-page' %}" class="blog-img mr-4"
+                style="background-image: url({{ programs_at_nfh.Socials.image.image.url }});"></a>
+                <div class="text">
+                    <h3 class="heading"><a
+                            href="{% url 'socials-page' %}">{{ programs_at_nfh.Socials.details.name }}</a></h3>
+                    <div class="meta">
+                        <div><span class="icon-calendar"></span> {{ programs_at_nfh.Socials.details.date }}</div>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+
+
+
+</div>

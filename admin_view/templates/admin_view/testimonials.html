@@ -1,0 +1,42 @@
+{% extends 'admin_view/main.html' %}
+{% block content %}
+    <!--overview start-->
+    <div class="row">
+        <div class="col-md-10" style='margin:0 auto '>
+            
+            <div class="card card-body">
+                <h5>Testimonials</h5>
+                <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'add-testimonial-page' %}">Add Testimonial</a>
+                <hr>    
+                <table class="table table-sm">
+                    <tr>
+                        <th>Client Name</th>
+                        <th>Before Weight</th>
+                        <th>After Weight</th>
+                        <th>Duration</th>
+                        <th>Total Loss</th>
+                        <th>Review</th>
+                    </tr>
+                    {% for testimonial in testimonials %}
+                        <tr>
+                            <td>{{testimonial.client_name}}</td>
+                            <td>{{testimonial.b_weight}}</td>
+                            <td>{{testimonial.a_weight}}</td>
+                            <td>{{testimonial.duration}}</td>
+                            <td>{{testimonial.total_loss}}</td>
+                            <td style="width:30%" >{{testimonial.review}}</td>
+                            <td>
+                                <a class="btn btn-sm btn-info" href="{% url 'update-testimonial-page' pk=testimonial.client_id %}">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="{% url 'delete-testimonial-page' pk=testimonial.client_id %}">
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

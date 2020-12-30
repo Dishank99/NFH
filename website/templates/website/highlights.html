@@ -1,0 +1,190 @@
+{% extends 'website/main.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand"><img src="{% static '/website/img/nfh.png' %}" style="width:100px">Namita's Fitness Hub</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="fa fa-bars"></span> MENU
+      </button>
+      <div class="collapse navbar-collapse " id="ftco-nav">
+        <ul class="navbar-nav ml-auto ">
+          <li class="nav-item "><a href="{% url 'home-page' %}" class="nav-link">HOME</a></li>
+          <li class="nav-item active"><a href="{% url 'highlight-page' %}" class="nav-link">WHYNFH?</a></li>
+          <li class="nav-item"><a href="{% url 'achievements-page' %}" class="nav-link">EXPERT</a></li>
+          <li class="nav-item dropdown ">
+            <a href="{% url 'home-page' %}#programs" class="nav-link">
+              <span>PROGRAMS</span></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin: -5px;">
+              <a class="dropdown-item" href="{% url 'anniversarys-page' %}">ANNIVERSARIES </a>
+  
+              <a class="dropdown-item" href="{% url 'events-page' %}">EVENTS</a>
+  
+  
+  
+              <a class="dropdown-item" href="{% url 'socials-page' %}">SOCIAL CAUSE</a>
+            </div>
+          </li>
+          <li class="nav-item"><a href="{% url 'exercises-page' %}" class="nav-link">EXERCISES</a></li>
+          <li class="nav-item"><a href="{% url 'testimonials-page' %}" class="nav-link">TESTIMONIALS</a></li>
+  
+          {% if user.is_authenticated%}
+        <li class="nav-item"><a href="{% url 'logout-page' %}" class="nav-link">LOGOUT</a></li>
+        {% else %}
+        <li class="nav-item"><a href="{% url 'login-page' %}" class="nav-link">LOGIN</a></li>
+        {% endif %}
+  
+          <li class="nav-item"><a href="{% url 'home-page' %}#contact-section" class="nav-link">CONTACT</a></li>
+          <li class="nav-item"><a href="{% url 'payment-page' %}" class="nav-link">PAY</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- END nav  -->
+<section class="hero-wrap hero-wrap-2" style="background-color:#dc3545">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <h1 class="mb-0 bread">Why NFH?</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section" id="exercise">
+    <div class="container">
+
+
+
+        <div class="row no-gutters" style="background-color:#f8f9fad7">
+            <div class="col-md-6 p-md-6 img img-2 mt-5 mt-md-0 6" style="background-image: url({% static 'website/img/exercises1.jpg' %});">
+            </div>
+            <div class="col-md-6 wrap-about py-4 ftco-animate pl-md-4">
+                <div class="heading-section">
+                    <h1 class="mb-2 " style="color: #dc3545;">Exercise Programs</h1>
+                </div>
+                <p class="text-justify">Namitas Fitness Hub(NFH) is a complete package of variety and unique gateway to
+                    the world of fitness and healthy lifestyle.It has excercises right from cardio workouts,strength
+                    training ,dance workouts floor excercises to name a few.Every session is fun ,effective and full of
+                    energy. Music helps one move ,burn the fat, boost the metabolism and burn the calories without one
+                    realizing it.Nfh provides unlimited motivation and push through to reach the desired goals along
+                    with comfortable and positive environment .It helps one look and feel their best by working harder n
+                    smarter to join beyond the comfort zones to achieve the desired goals.<br>
+                    Nfh offers plethora of workout regimes which keeps people coming back for more to sweat it
+                    out.Bokwa,kettle bell,dumbell,battlerope,hoola houp,step boards,bosuball,ball
+                    workouts,kickboxing,stretch bands,floor exercise trampoline,muscle
+                    strengthening,bellydancingworkout,etc.One can use alternative props in your home or any other
+                    variations,even if it's not there still you get an amazing workout .</p>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</section>
+<section class="ftco-section" id="pd">
+    <div class="container">
+
+
+
+        <div class="row no-gutters" style="background-color:#f8f9fad7">
+            <div class="col-md-6 p-md-6 img img-2 mt-5 mt-md-0 6" style="background-image: url({% static 'website/img/ped.jpg' %});">
+            </div>
+            <div class="col-md-6 wrap-about py-4 ftco-animate pl-md-4">
+                <div class="heading-section">
+                    <h1 class="mb-2 " style="color: #dc3545;">Personality Development</h1>
+                </div>
+                <p class="text-justify">A sound mind in a sound body .weight loss and the mind are indirectly connected
+                    .Once a person starts shedding the excess baggage;the confidence boosts up automatically and one
+                    starts feeling good both internally as well as externally.NFH instills the passion to be in shape
+                    which becomes the driving force to progress in life too.A sense of victory after achieving the
+                    desired shape gives a different perspective in life.Here it's not just the body which gets chiselled
+                    but mind and personality too.NFH introduces its students to lot many things in life .students are
+                    introduced to the world of fashion and grooming too.Apart from that one learns to assess once own
+                    strength and potentials here. Maintaining a positive mindset is one of the most important essential
+                    trait and students are guided to master this art.one learns to maintain a positive mindset under all
+                    circumstances and bring about balance in life
+                </p>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</section>
+<section class="ftco-section" id="fun">
+    <div class="container">
+
+
+
+        <div class="row no-gutters" style="background-color:#f8f9fad7">
+            <div class="col-md-6 p-md-6 img img-2 mt-5 mt-md-0 6" style="background-image: url({% static 'website/img/funact.jpg' %});">
+            </div>
+            <div class="col-md-6 wrap-about py-4 ftco-animate pl-md-4">
+                <div class="heading-section">
+                    <h1 class="mb-2 " style="color: #dc3545;">Fun Activities</h1>
+                </div>
+                <p class="text-justify">
+                    Apart from regular workouts Nfh indulges in fun activities as a extension of experiencing fun n
+                    happiness a little more than often.All the important festivals of our country are celebrated in it's
+                    true essence and zeal.Garbha, Diwali, Christmas Independence Day, Republic Day, Holi etc are
+                    celebrated by bringing one closer to the roots and traditions. Music and dance adds up to make it
+                    more interesting to stay fit.Flying kites to playing various games gives a break from mundane life.
+                    Nfh holds great pride in hosting theme based carnivals. Treks are another variety which is
+                    incorporated in the regime to rejuvenate by getting closer to the nature.NFH has also held sports
+                    day so that one can have that extra dosage of fun and means to stay fit besides increasing the
+                    stamina.
+                </p>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</section>
+<section class="ftco-section" id="diet">
+    <div class="container">
+
+
+
+        <div class="row no-gutters" style="background-color:#f8f9fad7">
+            <div class="col-md-6 p-md-6 img img-2 mt-5 mt-md-0 6" style="background-image: url({% static 'website/images/services-3.jpg' %});">
+            </div>
+            <div class="col-md-6 wrap-about py-4 ftco-animate pl-md-4">
+                <div class="heading-section">
+                    <h1 class="mb-2 " style="color: #dc3545;">Diet Programs</h1>
+                </div>
+                <p class="text-justify">
+                    Namitas Fitness Hub(NFH) creates a self awareness, analysis of problems and helps one to focus on
+                    achieving the goals taking one step at a time.The key to losing weight apart from excercise is to
+                    eat right.The main aim is to make the necessary changes and eating the right food at the right
+                    time.Mindful eating becomes an enjoyable activity under proper guidance. Healthy meal plans to live
+                    a healthy and balanced lifestyle is being inculcated.Diets are tailor made in such a way that one
+                    doesn't feel deprived and enjoys life too by being fit. NFH stresses upon the value of home cooked
+                    food n the natural nutrients more than any other fad diets.It focuses more on imbibing good eating
+                    habits and make it one's life style.
+                </p>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</section>
+<!-- section -->
+
+{% endblock %}

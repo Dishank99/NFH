@@ -1,0 +1,30 @@
+{% load static %}
+<!-- <link href="{% static 'css/bootstrap-theme.css' %}" rel="stylesheet"> -->
+<div class="top-nav notification-row" style='margin-top:1%;' class='row'>
+    <!-- notification dropdown start-->
+    <!-- <ul class="nav pull-right top-menu"> -->
+
+        <!-- task notification start -->
+
+        <!-- user login dropdown start-->
+        <!-- <li class="dropdown"> -->
+            <a class='col'>
+                {% if user.is_authenticated %}
+                <span class="username">{{ request.user }}</span>
+                {% endif %}
+                <!-- <b class="caret"></b> -->
+            </a>
+            <span class='col'><a href="{% url 'logout' %}"><i class="fa fa-lock" aria-hidden="true"></i> Log Out</a></span>
+            
+            
+        <!-- </li> -->
+        <!-- user login dropdown end -->
+    <!-- </ul> -->
+    <!-- notification dropdown end-->
+</div>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script>
+    $('username').click(function(){
+        $('logout').css('display','block')
+    })
+</script>

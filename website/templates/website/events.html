@@ -1,0 +1,149 @@
+{% extends 'website/main.html' %}
+{% load static %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand"><img src="{% static '/website/img/nfh.png' %}" style="width:100px">Namita's Fitness Hub</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="fa fa-bars"></span> MENU
+    </button>
+    <div class="collapse navbar-collapse " id="ftco-nav">
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item "><a href="{% url 'home-page' %}" class="nav-link">HOME</a></li>
+        <li class="nav-item"><a href="{% url 'highlight-page' %}" class="nav-link">WHYNFH?</a></li>
+        <li class="nav-item"><a href="{% url 'achievements-page' %}" class="nav-link">EXPERT</a></li>
+        <li class="nav-item dropdown ">
+          <a href="{% url 'home-page' %}#programs" class="nav-link">
+            <span>PROGRAMS</span></a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin: -5px;">
+            <a class="dropdown-item" href="{% url 'anniversarys-page' %}">ANNIVERSARIES </a>
+
+            <a class="dropdown-item" href="{% url 'events-page' %}">EVENTS</a>
+
+
+
+            <a class="dropdown-item" href="{% url 'socials-page' %}">SOCIAL CAUSE</a>
+          </div>
+        </li>
+        <li class="nav-item"><a href="{% url 'exercises-page' %}" class="nav-link">EXERCISES</a></li>
+        <li class="nav-item"><a href="{% url 'testimonials-page' %}" class="nav-link">TESTIMONIALS</a></li>
+
+        {% if user.is_authenticated%}
+        <li class="nav-item"><a href="{% url 'logout-page' %}" class="nav-link">LOGOUT</a></li>
+        {% else %}
+        <li class="nav-item"><a href="{% url 'login-page' %}" class="nav-link">LOGIN</a></li>
+        {% endif %}
+
+        <li class="nav-item"><a href="{% url 'home-page' %}#contact-section" class="nav-link">CONTACT</a></li>
+        <li class="nav-item"><a href="{% url 'payment-page' %}" class="nav-link">PAY</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- END nav  -->
+
+<section class="hero-wrap hero-wrap-2" style="background-color: #dc3545">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-end">
+      <div class="col-md-9 ftco-animate pb-5">
+        <p class="breadcrumbs mb-2"><span>PROGRAMS AT NFH </span></p>
+        {% if name == 'Events' %}
+        <h1 class="mb-0 bread">Events</h1>
+        {% elif name == 'Anniversary' %}
+        <h1 class="mb-0 bread">Anniversaries</h1>
+        {% elif name == 'Socials' %}
+        <h1 class="mb-0 bread">Social Causes</h1>
+        {% elif name == 'Testimonials' %}
+        <h1 class="mb-0 bread">Testimonials</h1>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% if name == 'Testimonials' %}
+{% for que in Query %}
+  <section class="ftco-section bg-light">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-md-11">
+                  <div class="stories-wrap d-md-flex">
+                      <div class="imgg img" style="background-image: url({{ que.b_img.url }});"></div>
+                      <div class="imgg img" style="background-image: url({{ que.a_img.url }});"></div>
+                      <div class="text p-4 py-xl-5 px-xl-5 d-flex align-items-center">
+                          <div class=" pt-4 text-justify name mb-0">
+                              <p>"{{ que.review }}"</p>
+                              <p >Before Weight - {{ que.b_weight }} kgs<br>
+                                  After Weight - {{ que.a_weight }} kgs <br>
+                                  Weight Loss - {{ que.total_loss }} kgs<br>
+                                  Duration - {{ que.duration }} months
+                              
+                           </p>
+                           
+                          
+                                  <p >- {{ que.client_name }}</p>
+                          
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>	
+  </section>
+  {% endfor %}
+  {% else %}
+<section class="ftco-section ftco-degree-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 ftco-animate">
+        {% for que in Query %}
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+          <div class="carousel-inner">
+            {% for key, value in query_images.items %}
+            {% if key == que.name %}
+            <!-- <p>{{ value }}</p> -->
+            <!-- <div class="carousel-item active">
+                <img src="{{ value.0.image.url }}" alt="{{ event.name }}" width="1100" height="500">
+              </div> -->
+            {% for i in value %}
+            <!-- <p>{{ forloop.counter0 }}</p> -->
+            {% if forloop.counter0 == 0 %}
+            <div class="carousel-item active">
+              <img src="{{ i.image.url }}" alt="{{ que.name }}" width="1100" height="500">
+            </div>
+            {% else %}
+            <div class="carousel-item">
+              <img src="{{ i.image.url }}" alt="{{ que.name }}" width="1100" height="500">
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+          </div>
+
+          <!-- Left and right controls -->
+          <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        </div>
+
+        <h2 class="mb-3">{{ que.name }}</h2>
+        <p>{{ que.desc }}</p>
+        <!-- <p>Molestiae cupiditate inventore animi, maxime sapiente optio, illo est nemo veritatis repellat sunt doloribus nesciunt! Minima laborum magni reiciendis qui voluptate quisquam voluptatem soluta illo eum ullam incidunt rem assumenda eveniet eaque sequi deleniti tenetur dolore amet fugit perspiciatis ipsa, odit. Nesciunt dolor minima esse vero ut ea, repudiandae suscipit!</p> -->
+
+        {% endfor %}
+      </div>
+      <!-- .col-md-8 -->
+      {% include 'website/sidebar.html' %}
+
+    </div>
+  </div>
+</section> <!-- .section -->
+{% endif %}
+{% endblock %}

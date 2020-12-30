@@ -1,0 +1,73 @@
+{% extends 'admin_view/main.html' %}
+{% block content %}
+<style>
+	.pic{
+		max-width: 50%;
+		max-height:50%;
+		margin-left: 25%;
+		margin-right: auto;
+		margin-bottom:0.5%;
+	}
+</style>
+
+<br>
+<div class="row">
+	<div class="col-md-10" style='margin:0 auto'>
+		<div class="card card-body">
+			<a class="btn btn-warning" href="{% url 'admin-event-page' %}"> &#8592; Back to Events</a>
+			<div class='row'>
+				{% for i in images %}
+				<div class='col' class='image-container'>
+					<form method="POST" class="form-horizontal" action="" enctype="multipart/form-data">
+					<hr>
+					<h5 style="text-align: center">Image</h5>
+					<a style='left:100%' class="btn btn-sm btn-danger" href="{% url 'delete-event-image' pk=i.pk %}">
+						<i class="fa fa-ban" aria-hidden="true"></i>
+					</a>
+            		<hr>
+					<img class="pic" src="{{i.image.url}}" >
+					
+				</form>
+				</div>
+				{% endfor %}
+			</div>
+            <!-- {{achievement.image.url}} -->
+			<!-- <img class="pic" src="{{achievement.image.url}}" > -->
+		
+		</div>
+		<div class="card card-body">
+			
+			<form method="POST" action="" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="form-group">
+                    <label class="col-sm control-label"><strong>Upload Image</strong></label>
+                    <div class="col-sm-4">
+						<input type="file" name='image' class='form-control-file' id='achievement-images' multiple>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-sm control-label"><strong>Name</strong></label>
+                    <div class="col-sm-8">
+					  {{ form.name }}
+					  <!-- <input type="text"  name="title" class="form-control"value="" required> -->
+                    </div>
+				</div>
+				<div class="form-group">
+                    <label class="col-sm-4 control-label"><strong>Description</strong></label>
+                    <div class="col-sm-8">
+                      {{ form.desc }}
+                    </div>
+				</div>
+				<div class="form-group">
+                    <label class="col-sm-2 control-label"><strong>Date</strong></label>
+                    <div class="col-sm-4">
+                      {{ form.date }}
+                    </div>
+				</div>
+		
+			<input class="btn btn-primary" type="submit" name="Update Information">
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

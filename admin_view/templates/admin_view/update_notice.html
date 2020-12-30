@@ -1,0 +1,32 @@
+{% extends 'admin_view/main.html' %}
+{% block content %}
+<style>
+	.pic{
+		max-width: 50%;
+		max-height:50%;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+</style>
+
+<br>
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h3 style="text-align: center">Update Notice {{ notice.notice }}</h3>
+            <hr>
+			<form method="POST" action="" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="form-group">
+                    <label class="col-sm control-label"><strong>Notice</strong></label>
+                    <div class="col-sm-6">
+                      {{ form.notice }}
+                    </div>
+                </div>
+		
+			<input class="btn btn-primary" type="submit" name="Update Information">
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

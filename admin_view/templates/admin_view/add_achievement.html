@@ -1,0 +1,60 @@
+{% extends 'admin_view/main.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+	.pic{
+		max-width: 200px;
+		max-height:200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+</style>
+
+<br>
+<div class="row">
+	<div class="col-lg-10" style='margin: auto;'>
+		<div class="card card-body">
+			<h5>Add Achievement</h5>
+			<hr>
+			<form method="POST" class="form-horizontal" action="" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="form-group">
+                    <label class="col-sm-2 control-label"><strong>Upload Image</strong></label>
+                    <div class="col-sm-4">
+					  <!-- {{ form.image }} -->
+					  <input type="file" name='images' clas='form-control-file' id='achievement-images' multiple>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-sm control-label"><strong>Title</strong></label>
+                    <div class="col-sm-8">
+					  {{ form.title }}
+					  <!-- <input type="text"  name="title" class="form-control"value="" required> -->
+                    </div>
+				</div>
+				<div class="form-group">
+                    <label class="col-sm-2 control-label"><strong>Year*</strong></label>
+                    <div class="col-sm-4">
+                      {{ form.year }}
+                    </div>
+				</div>
+				<div class="form-group">
+                    <label class="col-sm-2 control-label"><strong>Type*</strong></label>
+                    <div class="col-sm-4">
+                      {{ form.type }}
+                    </div>
+				</div>
+				<div class="form-group">
+                    <label class="col-sm-2 control-label"><strong>Institution*</strong></label>
+                    <div class="col-sm-4">
+                      {{ form.institution }}
+                    </div>
+                </div>
+				<!-- {{form|crispy}} -->
+			<br>
+			<input class="btn btn-primary" type="submit" name="Update Information">
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'admin_view/main.html' %}
+{% block content %}
+    <!--overview start-->
+
+    <div class="row">
+        <div class="col-md-10" style='margin:0 auto '>
+            
+            <div class="card card-body">
+                <h5>Events</h5>
+                <a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'add-event-page' %}">Add Event</a>
+                <hr>    
+                <table class="table table-sm">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                    </tr>
+                    {% for e in event %}
+                        <tr>
+                            <td>{{e.name}}</td>
+                            <td style="width:70%">{{e.desc}}</td>
+                            <td>{{e.date}}</td>
+                            <td>
+                                <a class="btn btn-sm btn-info" href="{% url 'update-event-page' pk=e.id %}">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="{% url 'delete-event-page' pk=e.id %}">
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

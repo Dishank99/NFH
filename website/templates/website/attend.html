@@ -1,0 +1,42 @@
+{% extends 'website/main.html' %}
+{% load static %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+	<div class="container">
+		<a class="navbar-brand"><img src="{% static '/website/img/nfh.png' %}" style="width:100px">Namita's Fitness Hub</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="fa fa-bars"></span> MENU
+		</button>
+	  <div class="collapse navbar-collapse " id="ftco-nav">
+		<ul class="navbar-nav ml-auto ">
+			<li class="nav-item  "><a href="{% url 'home-page' %}"  target="_blank" class="nav-link">HOME</a></li>
+			<li class="nav-item active"><a href="{% url 'attend-page' %}" class="nav-link">ATTEND CLASS</a></li>
+			<li class="nav-item"><a href="{% url 'upload-pic-page' %}" class="nav-link">UPLOAD PICTURE</a></li>
+			<li class="nav-item "><a href="{% url 'plan-details-page' %}" class="nav-link">PLAN DETAILS</a></li>
+		  
+			  <li class="nav-item"><a href="{% url 'logout-page' %}" class="nav-link">LOGOUT</a></li>
+		   
+		</ul>
+	  </div>
+	</div>
+  </nav>
+  <!-- END nav  -->
+  <section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row  justify-content-center" style="text-align:center" >
+          
+
+            <div class="col-md-6 ">
+                <h2>Click below to attend the class.</h2>
+                
+				<a class="site-btn" href="{{ link }}">Attend</a>
+				{% if messages %}
+				{% for message in messages %}
+				<script>alert('{{ message }}')</script>
+				{% endfor %}
+				{% endif %}
+        </div>
+    </div>	
+    </div>
+</section>
+{% endblock %}

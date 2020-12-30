@@ -1,0 +1,82 @@
+{% extends 'admin_view/main.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+	.pic{
+		max-width: 200px;
+		max-height:200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+</style>
+
+<br>
+<div class="row">
+	<div class="col-lg-10" style='margin: auto;'>
+		<div class="card card-body">
+			<h5>Add Testimonial</h5>
+			<hr>
+			<form method="POST" class="form-horizontal" action="" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="form-group">
+                    <label class="col-sm control-label"><strong>Client Name</strong></label>
+                    <div class="col-sm-8">
+					  {{ form.client_name }}
+					  <!-- <input type="text"  name="title" class="form-control"value="" required> -->
+                    </div>
+				</div>
+				<div class='row form-group'>
+					<div class=" col-md-3">
+						<label class="col-sm control-label"><strong>Upload Before Image</strong></label>
+						<div class="col-sm-4">
+						{{ form.b_img }}
+						</div>
+					</div>
+					<div class=" col-md-5">
+						<label class="col-sm control-label"><strong>Before Weight</strong></label>
+						<div class="col-sm-4">
+						{{ form.b_weight }}
+						</div>
+					</div>
+					
+				</div>
+				<div class='row'>
+					<div class="form-group col-md-3">
+						<label class="col-sm control-label"><strong>Upload After Image</strong></label>
+						<div class="col-sm-4">
+						{{ form.a_img }}
+						</div>
+					</div>
+					<div class="form-group col-md-5">
+						<label class="col-sm control-label"><strong>After Weight</strong></label>
+						<div class="col-sm-4">
+						{{ form.a_weight }}
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+                    <label class="col-sm-2 control-label"><strong>Duration*</strong></label>
+                    <div class="col-sm-4">
+                      {{ form.duration }}
+                    </div>
+				</div>
+				<div class="form-group">
+                    <label class="col-sm-2 control-label"><strong>Total Loss*</strong></label>
+                    <div class="col-sm-4">
+                      {{ form.total_loss }}
+                    </div>
+				</div>
+				<div class="form-group">
+                    <label class="col-sm-2 control-label"><strong>Review</strong></label>
+                    <div class="col-sm-6">
+                      {{ form.review }}
+                    </div>
+                </div>
+				<!-- {{form|crispy}} -->
+			<br>
+			<input class="btn btn-primary" type="submit" name="Update Information">
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
