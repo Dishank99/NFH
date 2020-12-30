@@ -14,6 +14,8 @@ import datetime
 
 from website.send_email import *
 
+import razorpay_secrets
+
 
 def get_programs_at_nfh_details():
     anniversary_pan = events_pan = socials_pan = None
@@ -242,7 +244,7 @@ def PaymentPage(request):
 
 
 client = razorpay.Client(
-    auth=("rzp_test_5pBJooomIzWj0e", "fKcra0MmEkPLloXL74BEPRQa"))
+    auth=(razorpay_secrets.RAZORPAY_AUTH_TEST_KEY, razorpay_secrets.RAZORPAY_AUTH_TEST_TOKEN))
 
 
 @register_first

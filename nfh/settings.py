@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import secrets
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -133,8 +135,8 @@ MEDIA_ROOT_URL = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'namitasfitnesshub.com'
-EMAIL_HOST_PASSWORD = 'Namita18$'
-EMAIL_HOST_USER = 'admin@namitasfitnesshub.com'
+EMAIL_HOST = secrets.EMAIL_HOST
+EMAIL_HOST_PASSWORD = secrets.EMAIL_HOST_PASSWORD
+EMAIL_HOST_USER = secrets.EMAIL_HOST_USER
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
