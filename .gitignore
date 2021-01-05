@@ -1,5 +1,6 @@
-.db.sqlite3
-.nfh-version-2_Copy_Cpoy.zip
+*.sqlite3
+*.zip
 .Razorpay key 16-7-20T03.36.txt
-.secrets.py
-.razorpay_secrets
+nfh/secrets.py
+website/razorpay_secrets.py
+migrations/
