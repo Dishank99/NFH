@@ -52,6 +52,8 @@ class Plans(models.Model):
     name = models.CharField(max_length=100, verbose_name='Name')
     price = models.CharField(max_length=50, verbose_name='Price')
     validity = models.IntegerField(null=True, blank=True)
+    PLAN_TYPE = (('D','Default'),('N','Normal'))
+    plan_type = models.CharField(choices=PLAN_TYPE, default='N', max_length=10)
 
     class Meta:
         verbose_name = 'Plan'
@@ -61,6 +63,11 @@ class Plans(models.Model):
         self.slug = self.name.lower().replace(' ', '-')
         print(self.slug)
         super(Plans, self).save(*args, **kwargs)
+
+    @staticmethod
+    def get_default_plan():
+        default_plan = Plans.objects.get(plan_type='D')
+        return default_plan
 
     def __str__(self):
         return self.name

@@ -237,7 +237,7 @@ def PaymentPage(request):
                     print(request.GET.get('next'))
                     return redirect(request.GET.get('next'))
                 else:
-                    slug = user.subscription.plan.slug if user.subscription.plan else 'already-an-nfhite'
+                    slug = user.subscription.plan.slug if user.subscription.plan else Plans.get_default_plan().slug
                     return redirect('/makepayment/'+slug+'/')
             else:
                 messages.info(
@@ -488,7 +488,7 @@ def PreRegisterPage(request):
             preregister.class_type = request.POST.get('class-type')
             preregister.batch = Batches.objects.get(
                 batch_id=request.POST.get('batch_time'))
-            preregister.plan = Plans.objects.get(slug='already-an-nfhite')
+            preregister.plan = Plans.objects.get(slug=Plans.get_default_plan().slug)
             preregister.is_approved = False
             preregister.save()
             request_notify_mail({

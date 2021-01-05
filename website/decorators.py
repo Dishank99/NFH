@@ -19,7 +19,7 @@ def has_body_pic(func):
 
 def login_through_mobile_no(func):
     def wrapper_func(request, slug, *args, **kwargs):
-        if slug == 'already-an-nfhite' and not request.user.is_authenticated:
+        if slug == Plans.get_default_plan().slug and not request.user.is_authenticated:
             print('login_through_mobile_no if cond')
             return HttpResponseRedirect(f"{reverse('payment-page')}?next={request.path}")
         else:
@@ -35,7 +35,7 @@ def pay_first(func):
     def wrapper_func(request, *args, **kwargs):
         try:
             if not request.user.subscription or not request.user.subscription.is_active:
-                slug = request.user.subscription.plan.slug if request.user.subscription.plan else 'already-an-nfhite'
+                slug = request.user.subscription.plan.slug if request.user.subscription.plan else Plans.get_default_plan().slug
                 return HttpResponseRedirect(f"{reverse('makepayment-page', kwargs={'slug':slug})}?next={request.path}")
             else:
                 return func(request, *args, **kwargs)
@@ -53,10 +53,12 @@ def register_first(func):
             Plans.objects.get(slug=slug)
         except Plans.DoesNotExist:
             raise Http404
-        if slug != 'already-an-nfhite' and not request.user.is_authenticated:
+        print('slug',slug)
+        print('Plans.default_plan',str(Plans.get_default_plan().slug))
+        if slug != Plans.get_default_plan().slug and not request.user.is_authenticated:
             print('register_first if cond')
             return HttpResponseRedirect(f"{reverse('register-page')}?next={request.path}")
-        elif slug == 'already-an-nfhite' and not request.user.is_authenticated:
+        elif slug == Plans.get_default_plan().slug and not request.user.is_authenticated:
             print('register elif cond')
             return HttpResponseRedirect(reverse('preregister-page'))
         else:
