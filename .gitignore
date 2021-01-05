@@ -1,6 +1,7 @@
 db.sqlite3
+*.pyc
+__pycache__/
 Razorpay key 16-7-20T03.36.txt
-secrets.py
-razorpay_secrets.py
-migrations/
-media/
+nfh/secrets.py
+website/razorpay_secrets.py
+media
