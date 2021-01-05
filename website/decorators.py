@@ -6,11 +6,14 @@ from .models import *
 
 def has_body_pic(func):
     def wrapper_func(request, *args, **kwargs):
-        if request.user.profile.body_img or request.user.subscription.plan.slug == 'starter':
-            return func(request, *args, **kwargs)
-        else:
-            # return redirect('upload-pic-page')
-            return HttpResponseRedirect(f"{reverse('upload-pic-page')}?next={request.path}")
+        try:
+            if request.user.profile.body_img or request.user.subscription.plan.slug == 'starter':
+                return func(request, *args, **kwargs)
+            else:
+                # return redirect('upload-pic-page')
+                return HttpResponseRedirect(f"{reverse('upload-pic-page')}?next={request.path}")
+        except Exception as e :
+            raise Exception(e)
     return wrapper_func
 
 
@@ -30,11 +33,15 @@ def login_through_mobile_no(func):
 
 def pay_first(func):
     def wrapper_func(request, *args, **kwargs):
-        if not request.user.subscription or not request.user.subscription.is_active:
-            slug = request.user.subscription.plan.slug if request.user.subscription.plan else 'already-an-nfhite'
-            return HttpResponseRedirect(f"{reverse('makepayment-page', kwargs={'slug':slug})}?next={request.path}")
-        else:
-            return func(request, *args, **kwargs)
+        try:
+            if not request.user.subscription or not request.user.subscription.is_active:
+                slug = request.user.subscription.plan.slug if request.user.subscription.plan else 'already-an-nfhite'
+                return HttpResponseRedirect(f"{reverse('makepayment-page', kwargs={'slug':slug})}?next={request.path}")
+            else:
+                return func(request, *args, **kwargs)
+        except Exception as e:
+            messages.info(request, str(e))
+            return redirect('home-page')
     return wrapper_func
 
 

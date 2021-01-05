@@ -14,7 +14,7 @@ import datetime
 
 from website.send_email import *
 
-import razorpay_secrets
+from website import razorpay_secrets
 
 
 def get_programs_at_nfh_details():
@@ -173,7 +173,11 @@ def UploadPicturePage(request):
     if request.method == 'POST':
         image = request.FILES.get('image', False)
         if image:
-            profile = request.user.profile
+            try:                
+                profile = request.user.profile
+            except Profile.DoesNotExist:
+                messages.info(request, 'Your Account was not created properly. Kindly re-registr with diffrent credentials')
+                return redirect('home-page')
             print(profile)
             profile.body_img = image
             profile.save()
@@ -190,14 +194,18 @@ def UploadPicturePage(request):
 @pay_first
 @has_body_pic
 def AttendPage(request):
-    if request.user.subscription and request.user.subscription.is_active:
-        link = request.user.subscription.batch.session_link
-        context = {
-            'link': link,
-        }
-    else:
-        messages.info(request, 'Your Subscription has ended')
-    return render(request, 'website/attend.html', context)
+    try:
+        if request.user.subscription and request.user.subscription.is_active:
+            link = request.user.subscription.batch.session_link
+            context = {
+                'link': link,
+            }
+        else:
+            messages.info(request, 'Your Subscription has ended')
+        return render(request, 'website/attend.html', context)
+    except Exception as e:
+        messages.info(request, str(e))
+        return redirect('home-page')
 
 
 @login_required
@@ -428,32 +436,39 @@ def RegisterPage(request):
                     request, 'User with this Mobile Number already exists.')
         except:
             if form.is_valid():
-                user = form.save()
-                first_name = form.cleaned_data.get('first_name')
-                profile = Profile.objects.create(
-                    user=user,
-                    gender=request.POST.get('gender'),
-                    mobile_no=request.POST.get('mobile_no'),
-                )
-                profile.save()
-                subscription = Subscription.objects.create(
-                    user=user,
-                    class_type=request.POST.get('class-type'),
-                    batch=Batches.objects.get(
-                        batch_id=request.POST.get('batch_time')),
-                    plan=Plans.objects.get(slug=request.GET.get('next')[1:-1].split('/')[1]
-                                           )
-                )
-                subscription.save()
-                messages.success(
-                    request, f'User {first_name} created successfully')
-                print(request.GET.get('next'))
-                # return HttpResponseRedirect(f"{reverse('payment-page')}?next={request.GET.get('next')}")
-                if request.GET.get('next'):
-                    return HttpResponseRedirect(f"{reverse('payment-page')}?next={request.GET.get('next')}")
-                else:
-                    return redirect('payment-page')
-                # return redirect('login-page')
+                try:
+                    user = form.save()
+                    first_name = form.cleaned_data.get('first_name')
+                    profile = Profile.objects.create(
+                        user=user,
+                        gender=request.POST.get('gender'),
+                        mobile_no=request.POST.get('mobile_no'),
+                    )
+                    profile.save()
+                    subscription = Subscription.objects.create(
+                        user=user,
+                        class_type=request.POST.get('class-type'),
+                        batch=Batches.objects.get(
+                            batch_id=request.POST.get('batch_time')),
+                        plan=Plans.objects.get(slug=request.GET.get('next')[1:-1].split('/')[1]
+                                            )
+                    )
+                    subscription.save()
+                    messages.success(
+                        request, f'User {first_name} created successfully')
+                    print(request.GET.get('next'))
+                    # return HttpResponseRedirect(f"{reverse('payment-page')}?next={request.GET.get('next')}")
+                    if request.GET.get('next'):
+                        return HttpResponseRedirect(f"{reverse('payment-page')}?next={request.GET.get('next')}")
+                    else:
+                        return redirect('payment-page')
+                    # return redirect('login-page')
+                except:
+                    messages.error(request, 'There was some problem while registering. Please try again after some time')
+                    if user: user.delete()
+                    if profile: profile.delete()
+                    if subscription: subscription.delete()
+                    
             # messages.error(request,form.errors)
 
     context = {'form': form}
@@ -463,32 +478,36 @@ def RegisterPage(request):
 def PreRegisterPage(request):
 
     if request.method == 'POST':
-        preregister = PreRegisteredProfiles()
-        preregister.first_name = request.POST.get('first_name')
-        preregister.last_name = request.POST.get('last_name')
-        preregister.username = request.POST.get('username')
-        preregister.gender = request.POST.get('gender')
-        preregister.mobile_no = request.POST.get('mobile_no')
-        preregister.class_type = request.POST.get('class-type')
-        preregister.batch = Batches.objects.get(
-            batch_id=request.POST.get('batch_time'))
-        preregister.plan = Plans.objects.get(slug='already-an-nfhite')
-        preregister.is_approved = False
-        preregister.save()
-        request_notify_mail({
-            'id': preregister.id,
-            'first_name': preregister.first_name,
-            'last_name': preregister.last_name,
-            'email': preregister.username.strip(),
-            'gender': preregister.gender,
-            'mobile_no': preregister.mobile_no,
-            'class_type': 'Online' if preregister.class_type == 'O' else 'At Hub',
-            'batch': preregister.batch,
-        })
-        messages.info(
-            request, 'Your Profile has been shared with Admin, wait for Approval.')
-        
-        # return redirect('home-page')
+        try: 
+            preregister = PreRegisteredProfiles()
+            preregister.first_name = request.POST.get('first_name')
+            preregister.last_name = request.POST.get('last_name')
+            preregister.username = request.POST.get('username')
+            preregister.gender = request.POST.get('gender')
+            preregister.mobile_no = request.POST.get('mobile_no')
+            preregister.class_type = request.POST.get('class-type')
+            preregister.batch = Batches.objects.get(
+                batch_id=request.POST.get('batch_time'))
+            preregister.plan = Plans.objects.get(slug='already-an-nfhite')
+            preregister.is_approved = False
+            preregister.save()
+            request_notify_mail({
+                'id': preregister.id,
+                'first_name': preregister.first_name,
+                'last_name': preregister.last_name,
+                'email': preregister.username.strip(),
+                'gender': preregister.gender,
+                'mobile_no': preregister.mobile_no,
+                'class_type': 'Online' if preregister.class_type == 'O' else 'At Hub',
+                'batch': preregister.batch,
+            })
+            messages.info(
+                request, 'Your Profile has been shared with Admin, wait for Approval.')
+            
+            # return redirect('home-page')
+        except:
+            messages.error(request, 'There was some problem while registering. Please try again after some time')
+            if preregister: preregister.delete()
 
     return render(request, 'website/preregister.html')
 
@@ -557,7 +576,7 @@ def PasswordReset(request, unique_number):
                 return redirect('login-page')
             else:
                 messages.info(request, 'Password Doesnot Match')
-    except:
+    except User.DoesNotExist:
         messages.info(request, 'User not Found. Check Your Email-Id')
     return render(request, 'website/passwordreset.html')
 
