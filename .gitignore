@@ -1,9 +1,10 @@
 db.sqlite3
 *.pyc
 *.jpg
+*.zip
+zip/
 !default.jpg
 __pycache__/
 Razorpay key 16-7-20T03.36.txt
-secrets.py
-razorpay_secrets.py
-media/
+nfh/secrets.py
+website/razorpay_secrets.py
