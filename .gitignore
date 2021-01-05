@@ -4,7 +4,4 @@
 nfh/secrets.py
 website/razorpay_secrets.py
 migrations/
-<<<<<<< HEAD
 media/
-=======
->>>>>>> f06f3867deee9092dd3a0a63e117345145de288f
