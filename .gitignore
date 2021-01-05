@@ -2,5 +2,5 @@ db.sqlite3
 Razorpay key 16-7-20T03.36.txt
 secrets.py
 razorpay_secrets.py
-migrations
-media
+migrations/
+media/
