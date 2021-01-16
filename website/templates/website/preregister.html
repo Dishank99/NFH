@@ -8,6 +8,42 @@
     padding: 10px;
     margin-top: 10px;
   }
+  #loader {
+    visibility:visible;
+    background-color: rgba(255, 255, 255, 0.25) ;
+    margin:0 auto;
+    height:100%;
+    width:100%;
+    top:0; bottom:0;
+    position:absolute;
+    position:fixed;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    z-index: 5;
+  }
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #dc3545;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
   <div class="container">
@@ -50,6 +86,11 @@
   </div>
 </nav>
 <!-- END nav  -->
+<div id='loader'>
+  <div class='spinner'>
+
+  </div>
+</div>
 <!-- Register Section Begin -->
 <div class="register-login-section spad">
   <div class="container">
@@ -140,7 +181,7 @@
             </div>
             {% endfor %}
             {% endif %}
-            <input type="submit" class="site-btn register-btn" value='REGISTER'>
+            <input type="submit" class="site-btn register-btn" value='REGISTER' id='loginBut'>
           </form>
           <div class="switch-login">
             OR
@@ -153,7 +194,27 @@
 </div>
 <!-- Register Form Section End -->
 <script>
+  window.onload = stopLoader()
+
+  function noScroll() {
+    window.scrollTo(0, 0);
+  }
+
+  function stopLoader(){
+    document.getElementById('loader').style.visibility = 'hidden'
+    console.log('stop loading')
+  }
+
+  function displayLoader (){
+    document.getElementById('loader').style.visibility = 'visible'
+    console.log('loading')
+
+  }
+
+  document.getElementById('loginBut').addEventListener('click',displayLoader)
+
   var gender, classType
+
   function getGender() {
     gender = document.getElementById('gender').value;
     // alert(`gender = ${gender}`)
