@@ -1,16 +1,17 @@
 # NFH - Namitas's Fitness Hub WebApp
-NFH is the Web Application built, using Python Django with HTML, CSS, JS, for our client Namitas Fitness Hub.
-The WebApp can be used for managing and displaying assets of clients and also the manage Plans, Subscription and Batches for Users.
-A Users can select a particular plan and subscribe to it. Each Plan has a rate and days of validity after which the user will be automatically be unsubscribes from that plan
-All the permissions to manage Plans are been given to Admin.
-An Email Service has been also integrated so that users can be notified time to time regarding plan request approval, payments etc.
-A RazorPay Payment gateway has also been integrated.
-A good UX flow has been taken care of keeping in mind taking care of all the usecases.
-The static image files are served using Firebase Cloud Storagw which is a CDN in itself.
-Media Images are compressed so that latency is reduced.
+- NFH is the Web Application built, using Python Django with HTML, CSS, JS, for our client Namitas Fitness Hub.
+- The WebApp can be used for managing and displaying assets of clients and also the manage Plans, Subscription and Batches for Users.
+- A Users can select a particular plan and subscribe to it. Each Plan has a rate and days of validity after which the user will be automatically be unsubscribes from that plan
+- All the permissions to manage Plans are been given to Admin.
+- An Email Service has been also integrated so that users can be notified time to time regarding plan request approval, payments etc.
+- A RazorPay Payment gateway has also been integrated.
+- A good UX flow has been taken care of keeping in mind taking care of all the usecases.
+- Cron Job Services are used to check the validity for Plan Subcription and Account.
+- The static image files are served using Firebase Cloud Storagw which is a CDN in itself.
+- Media Images are compressed so that latency is reduced.
 
 ## Future Tasks
-To make necessary changes rather enhancements to reduce the latencies as much as possible.
+- To make necessary changes rather enhancements to reduce the latencies as much as possible.
 
 ## Setup
 
