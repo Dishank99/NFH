@@ -1,15 +1,18 @@
 # NFH - Namitas's Fitness Hub WebApp
 - NFH is the Web Application built, using Python Django with HTML, CSS, JS, for our client Namitas Fitness Hub.
 - The WebApp can be used for managing and displaying assets of clients and also the manage Plans, Subscription and Batches for Users.
-- An User Subscruprion Model is developed to manage the user subscription.
+- An User Subscription Model is developed to manage the user subscription.
 - A Users can select a particular plan and subscribe to it. Each Plan has a rate and days of validity after which the user will be automatically be unsubscribes from that plan
-- All the necessary permissions to manage Plans, Batches and Subscriptio  are been given to Admin.
+- A user can select a particular batch to which a link to a video lecture is associated.
+- All the necessary permissions to manage Plans, Batches and Subscriptions are been given to Admin.
 - For the required default plans A Request Model has been developed so that authorized users only can subscribe.
+- In order to attend a session, a user has to fulfill necesaary requirements. If not done then, he or she womt be able to attend.
 - An Email Service has been also integrated so that users can be notified time to time regarding plan request approval, payments etc.
 - A RazorPay Payment gateway has also been integrated.
 - A good UX flow has been taken care of keeping in mind taking care of all the usecases.
 - Cron Job Services are used to check the validity for Plan Subcription and Account.
-- The static image files are served using Firebase Cloud Storagw which is a CDN in itself.
+- A user's account will be closed if he/she is inactive(does not have any active plans) for 365 days.
+- The static image files are served using Firebase Cloud Storage which is a CDN in itself.
 - Media Images are compressed so that latency is reduced.
 
 ## Future Tasks
